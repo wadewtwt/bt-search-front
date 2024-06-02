@@ -11,30 +11,34 @@
         </div>
       </el-col>
     </el-row>
+    <ul v-infinite-scroll="loadNextPage" class="infinite-list" style="overflow: auto">
+      <el-row type="flex" justify="center" align="middle" class="contentListDiv">
 
-    <el-row type="flex" justify="center" align="middle" class="contentListDiv">
-      <el-col :span="11" >
-        <el-descriptions  :title="contentTitle" :column="3">
-          <el-descriptions-item ><el-icon color="#409efc" :size="25"><Film /></el-icon></el-descriptions-item>
-          <el-descriptions-item ><b>哥斯拉大战金刚2：帝国崛起 电影 爱分享</b></el-descriptions-item>
-          <el-descriptions-item >
-            <el-tag >2.3G</el-tag>
-          </el-descriptions-item>
-          <el-rate v-model="valueScore" clearable />
-          <el-descriptions-item label="推荐指数">
-            <el-rate v-model="valueScore" clearable />
-          </el-descriptions-item>
+        <el-col :span="11" >
+          <el-descriptions :title="contentTitle" :column="3" >
+            <div class="description-item-all" >
+              <el-descriptions-item ><el-icon color="#409efc" :size="25"><Film /></el-icon></el-descriptions-item>
+              <el-descriptions-item ><b>1哥斯拉大战金刚2：帝国崛起 电影 爱分享</b></el-descriptions-item>
+              <el-descriptions-item >
+                <el-tag >2.3G</el-tag>
+              </el-descriptions-item>
+              <el-rate v-model="valueScore" clearable />
+              <el-descriptions-item label="推荐指数">
+                <el-rate v-model="valueScore" clearable />
+              </el-descriptions-item>
+              <el-descriptions-item >
+                点击数：23
+              </el-descriptions-item>
+            </div>
 
-          <el-descriptions-item >
-            点击数：23
-          </el-descriptions-item>
-        </el-descriptions>
-      </el-col>
-      <el-col :span="1" >
-        豆瓣传送门<el-icon ><Promotion /></el-icon>
-      </el-col>
-    </el-row>
+          </el-descriptions>
+        </el-col>
+        <el-col :span="1" >
+          豆瓣传送门<el-icon ><Promotion /></el-icon>
+        </el-col>
+      </el-row>
 
+    </ul>
   </div>
 
 </template>
@@ -70,6 +74,11 @@ export default {
       }],
       contentTitle: '搜索结果共10条'
     }
+  },
+  methods: {
+    loadNextPage() {
+      console.log('next!')
+    }
   }
 }
 </script>
@@ -84,6 +93,9 @@ export default {
 }
 .search-button{
   height: 48px !important;
+}
+.description-item-all{
+  background: #42b983 !important;
 }
 
 </style>
