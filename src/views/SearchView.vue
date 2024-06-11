@@ -94,7 +94,8 @@ export default {
       searchResult: [],
       total: 0,
       pageNo: 1,
-      is_homepage: true
+      is_homepage: true,
+      baseUrl: "http://api.jumpfun.space/api/search"
     }
   },
   methods: {
@@ -102,10 +103,7 @@ export default {
       console.log(this.keyword)
     },
     search(){
-      axios.post('http://api.jumpfun.space/api/search', {
-        keyword: this.keyword,
-        pageNo: this.pageNo,
-      }).then(response => {
+      axios.get(this.baseUrl+ "?keyword=" + this.keyword + "&pageNo=" + this.pageNo).then(response => {
 
         if (response.data.error) {
           alert(response.data.msg)
