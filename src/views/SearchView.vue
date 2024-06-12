@@ -84,7 +84,7 @@
 </template>
 
 <script>
-
+import { search } from '@/api/resource'
 export default {
 
   data () {
@@ -99,12 +99,8 @@ export default {
     }
   },
   methods: {
-    getDetail () {
-      console.log(this.keyword)
-    },
     search(){
       axios.get(this.baseUrl+ "?keyword=" + this.keyword + "&pageNo=" + this.pageNo).then(response => {
-
         if (response.data.error) {
           alert(response.data.msg)
         } else {
@@ -137,10 +133,17 @@ export default {
     },
     handlePageChange(pageNum) {
       this.pageNo = pageNum;
-      this.search();
+      let localUrl = "http://localhost:8080"
+      window.location = localUrl + "?keyword=" + this.keyword + "&pageNo=" + this.pageNo
     }
   },
   created () {
+    this.pageNo = 1;
+    if (this.$route.params.length > 0){
+      this.keyword = this.$route.params.keyword
+      this.pageNo = this.$route.params.pageNo
+    }
+
     var arrUrl = [
       'static/js/axios.min.js',
       'static/js/bootstrap.bundle.min.js'
@@ -152,6 +155,10 @@ export default {
       script.src = arrUrl[i]
       document.body.appendChild(script)
     }
+  },
+  mounted() {
+
+    search("金刚", 1)
   }
 }
 </script>
@@ -162,7 +169,7 @@ ol:hover{
 }
 .gradient-color{
   font-size: 30px;
-  background: linear-gradient(to right, #fdfdff, #1D97E4);
+  background: linear-gradient(to right, #1D97E4, #fdfdff);
   -webkit-background-clip: text;
   color: transparent;
 }
