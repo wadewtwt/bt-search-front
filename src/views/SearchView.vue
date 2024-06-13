@@ -12,8 +12,8 @@
 
     <div class="d-grid my-5 gap-2 d-flex justify-content-center">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="" @keyup.enter="search(true)" v-model="keyword">
-        <button class="btn btn-primary" @click="search(true)">搜索</button>
+        <input type="text" class="form-control" placeholder="" @keyup.enter="initSearch()" v-model="keyword">
+        <button class="btn btn-primary" @click="initSearch()">搜索</button>
       </div>
     </div>
     <div class="my-5 mx-auto">
@@ -95,14 +95,16 @@ export default {
       total: 0,
       pageNo: 1,
       is_homepage: true,
-      baseUrl: "http://api.jumpfun.space/api/search"
+      baseUrl: "http://api.jumpfun.space/api/search",
+      localUrl: "http://localhost:8080"
     }
   },
   methods: {
-    search(initPageNo){
-      if (initPageNo === true){
-        this.pageNo = 1
-      }
+    initSearch(){
+      let initJumpUrl = this.localUrl + "/?keyword=" + this.keyword + "&pageNo=1"
+      window.location.href = initJumpUrl
+    },
+    search(){
       searchApi(this.keyword, this.pageNo).then(response => {
         this.searchResult = response.data.list
         this.total = response.data.total
@@ -119,11 +121,11 @@ export default {
     },
     handlePageChange(pageNum) {
       this.pageNo = pageNum;
-      let localUrl = "http://localhost:8080"
+
       console.log("handlePageChange now pageNo is:")
       console.log(this.pageNo)
       console.log(this.keyword)
-      let jumpUrl = localUrl + "/?keyword=" + this.keyword + "&pageNo=" + this.pageNo
+      let jumpUrl = this.localUrl + "/?keyword=" + this.keyword + "&pageNo=" + this.pageNo
       console.log(jumpUrl)
       // window.location = jumpUrl
       window.location.href = jumpUrl
@@ -143,7 +145,6 @@ export default {
     }
   },
   mounted() {
-
     const params = new URLSearchParams(window.location.search);
     let urlKeyword = params.get('keyword');
     let urlPageNo = params.get('pageNo');
