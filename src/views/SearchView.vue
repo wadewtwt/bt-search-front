@@ -12,8 +12,8 @@
 
     <div class="d-grid my-5 gap-2 d-flex justify-content-center">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="" @keyup.enter="search" v-model="keyword">
-        <button class="btn btn-primary" @click="search">搜索</button>
+        <input type="text" class="form-control" placeholder="" @keyup.enter="search(true)" v-model="keyword">
+        <button class="btn btn-primary" @click="search(true)">搜索</button>
       </div>
     </div>
     <div class="my-5 mx-auto">
@@ -84,12 +84,12 @@
 </template>
 
 <script>
-import { search } from '@/api/resource'
-export default {
+import {searchApi} from '@/api/resource'
 
+export default {
   data () {
     return {
-      keyword: '金刚',
+      keyword: '',
       contentTitle: '搜索结果共10条',
       searchResult: [],
       total: 0,
@@ -99,51 +99,37 @@ export default {
     }
   },
   methods: {
-    search(){
-      axios.get(this.baseUrl+ "?keyword=" + this.keyword + "&pageNo=" + this.pageNo).then(response => {
-        if (response.data.error) {
-          alert(response.data.msg)
-        } else {
-          let remoteData = response.data.data
-          console.log("remoteData is:")
-          console.log(remoteData)
+    search(initPageNo){
+      if (initPageNo === true){
+        this.pageNo = 1
+      }
+      searchApi(this.keyword, this.pageNo).then(response => {
+        this.searchResult = response.data.list
+        this.total = response.data.total
 
-          this.searchResult = remoteData.list
-          this.total = remoteData.total
-          if(this.searchResult.length === 0){
-            alert('无相关结果')
+        this.searchResult.map((item, index) => {
+          if (this.keyword) {
+            let replaceReg = new RegExp(this.keyword, "ig");
+            let replaceString = `<span style="color: #0066FF">${this.keyword}</span>`;
+            this.searchResult[index].title = item.title.replace(replaceReg, replaceString);
           }
-
-          this.searchResult.map((item, index) => {
-            if (this.keyword) {
-              let replaceReg = new RegExp(this.keyword, "ig");
-              let replaceString = `<span style="color: #0066FF">${this.keyword}</span>`;
-              this.searchResult[index].title = item.title.replace(replaceReg, replaceString);
-            }
-          });
-
-        }
-      }).catch(error => {
-        if (error.toJSON().status === 429) {
-          alert('请求过于频繁，请稍等一下再次尝试(429)')
-        } else {
-          alert(`未知错误，请打开控制台查看(${error.message})`)
-        }
+        });
       })
+
     },
     handlePageChange(pageNum) {
       this.pageNo = pageNum;
       let localUrl = "http://localhost:8080"
-      window.location = localUrl + "?keyword=" + this.keyword + "&pageNo=" + this.pageNo
+      console.log("handlePageChange now pageNo is:")
+      console.log(this.pageNo)
+      console.log(this.keyword)
+      let jumpUrl = localUrl + "/?keyword=" + this.keyword + "&pageNo=" + this.pageNo
+      console.log(jumpUrl)
+      // window.location = jumpUrl
+      window.location.href = jumpUrl
     }
   },
   created () {
-    this.pageNo = 1;
-    if (this.$route.params.length > 0){
-      this.keyword = this.$route.params.keyword
-      this.pageNo = this.$route.params.pageNo
-    }
-
     var arrUrl = [
       'static/js/axios.min.js',
       'static/js/bootstrap.bundle.min.js'
@@ -158,7 +144,17 @@ export default {
   },
   mounted() {
 
-    search("金刚", 1)
+    const params = new URLSearchParams(window.location.search);
+    let urlKeyword = params.get('keyword');
+    let urlPageNo = params.get('pageNo');
+    if (urlKeyword !== null || urlPageNo !== null){
+      this.keyword = urlKeyword
+      this.pageNo = parseInt(urlPageNo)
+    }
+
+    console.log("init urlKeyword:" + urlKeyword + " and urlPageNo:" + urlPageNo)
+
+    this.search()
   }
 }
 </script>

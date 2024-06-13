@@ -8,7 +8,7 @@ export function fetchList(data) {
   })
 }
 
-export function search(keyword, pageNo) {
+export function searchApi(keyword, pageNo) {
   return request({
     url: '/api/search',
     method: 'get',
