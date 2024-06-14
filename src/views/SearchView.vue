@@ -141,9 +141,7 @@ export default {
     }
   },
   mounted() {
-
     console.log("now host:" + window.location.hostname)
-
     const params = new URLSearchParams(window.location.search);
     let urlKeyword = params.get('keyword');
     let urlPageNo = params.get('pageNo');
@@ -151,7 +149,6 @@ export default {
       this.keyword = urlKeyword
       this.pageNo = parseInt(urlPageNo)
     }
-
     console.log("init urlKeyword:" + urlKeyword + " and urlPageNo:" + urlPageNo)
 
     this.search()
