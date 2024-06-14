@@ -102,7 +102,7 @@ export default {
   },
   methods: {
     initSearch(){
-      let initJumpUrl = this.localUrl + "/?keyword=" + this.keyword + "&pageNo=1"
+      let initJumpUrl = "/?keyword=" + this.keyword + "&pageNo=1"
       window.location.href = initJumpUrl
     },
     search(){
