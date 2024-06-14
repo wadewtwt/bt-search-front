@@ -24,7 +24,6 @@
             <template v-if="searchResult.length > 0" class="container">
               <div class="row">
                 <div class="row col-md-11">
-
                   <div >
                     <span class="col-md-6">
                       <b class="card-title" v-html="item.title"></b>
@@ -84,6 +83,8 @@
 
 <script>
 import {searchApi} from '@/api/resource'
+import { ElLoading } from 'element-plus';
+
 
 export default {
   data () {
@@ -93,7 +94,8 @@ export default {
       searchResult: [],
       total: 0,
       pageNo: 1,
-      is_homepage: true
+      is_homepage: true,
+      loadingInstance: null
     }
   },
   methods: {
@@ -102,10 +104,20 @@ export default {
       window.location.href = initJumpUrl
     },
     search(){
+      this.loadingInstance = ElLoading.service({
+        //color:'#ff0000',
+        fullscreen:true,
+        lock:true,
+        text:'加载中...',
+        //spinner:'el-icon-loading',
+        //customClass:'lb-loading-icon-cls',
+        background:'rgba(0, 0, 0, 0.3)'
+      });
+
       searchApi(this.keyword, this.pageNo).then(response => {
+
         this.searchResult = response.data.list
         this.total = response.data.total
-
         this.searchResult.map((item, index) => {
           if (this.keyword) {
             let replaceReg = new RegExp(this.keyword, "ig");
@@ -113,6 +125,7 @@ export default {
             this.searchResult[index].title = item.title.replace(replaceReg, replaceString);
           }
         });
+        this.loadingInstance.close();
       })
 
     },
