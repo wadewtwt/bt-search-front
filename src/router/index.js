@@ -18,8 +18,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  mode: 'history',
+  history: createWebHashHistory(process.env.VUE_APP_BASE_API),
   routes
 })
 
