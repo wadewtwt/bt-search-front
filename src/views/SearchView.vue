@@ -127,13 +127,12 @@ export default {
       console.log(this.keyword)
       let jumpUrl = this.localUrl + "/?keyword=" + this.keyword + "&pageNo=" + this.pageNo
       console.log(jumpUrl)
-      // window.location = jumpUrl
+
       window.location.href = jumpUrl
     }
   },
   created () {
     var arrUrl = [
-      'static/js/axios.min.js',
       'static/js/bootstrap.bundle.min.js'
     ]
     let i
@@ -153,6 +152,7 @@ export default {
       this.pageNo = parseInt(urlPageNo)
     }
 
+    console.log("now host:" + window.location.hostname)
     console.log("init urlKeyword:" + urlKeyword + " and urlPageNo:" + urlPageNo)
 
     this.search()
