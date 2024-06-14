@@ -32,10 +32,10 @@
                     <span class="col-md-3">
                       <small>
                         {{ item.fileType }}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-square" viewBox="0 0 16 16">
-                          <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                          <path d="M5.795 12.456A.5.5 0 0 1 5.5 12V4a.5.5 0 0 1 .832-.374l4.5 4a.5.5 0 0 1 0 .748l-4.5 4a.5.5 0 0 1-.537.082"/>
-                        </svg>
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-square" viewBox="0 0 16 16">-->
+<!--                          <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>-->
+<!--                          <path d="M5.795 12.456A.5.5 0 0 1 5.5 12V4a.5.5 0 0 1 .832-.374l4.5 4a.5.5 0 0 1 0 .748l-4.5 4a.5.5 0 0 1-.537.082"/>-->
+<!--                        </svg>-->
                       </small>
                     </span>
                   </div>
@@ -43,7 +43,6 @@
                     <small class="col-md-3">更新时间：{{ item.updateTime }}</small>
                     <small class="col-md-3">热度：{{ item.hot }}</small>
                     <small class="col-md-3">
-
 
                     </small>
                     <small class="col-md-2">热度：99</small>
@@ -94,10 +93,7 @@ export default {
       searchResult: [],
       total: 0,
       pageNo: 1,
-      is_homepage: true,
-      baseUrl: "http://api.jumpfun.space/api/search",
-      // localUrl: "http://localhost:8080"
-      localUrl: window.location.hostname
+      is_homepage: true
     }
   },
   methods: {

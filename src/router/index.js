@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory,  createWebHistory} from 'vue-router'
 import SearchView from '../views/SearchView.vue'
 
 const routes = [
@@ -18,7 +18,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(process.env.VUE_APP_BASE_API),
+  history: createWebHistory(process.env.VUE_APP_BASE_API),
   routes
 })
 
