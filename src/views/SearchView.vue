@@ -6,7 +6,7 @@
         <span>
           <img src="static/img/logo.jpg" style="width: 100px" alt="导航盘">
         </span>
-        <span class="gradient-color">导航盘</span>
+        <span class="gradient-color">导 航 盘</span>
       </el-col>
     </el-row>
 
@@ -84,6 +84,7 @@
 <script>
 import {searchApi} from '@/api/resource'
 import { ElLoading } from 'element-plus';
+import { useHead } from '@unhead/vue'
 
 
 export default {
@@ -152,6 +153,19 @@ export default {
       script.src = arrUrl[i]
       document.body.appendChild(script)
     }
+
+    useHead({
+      title: '导航盘-最全的夸克网盘搜索引擎',
+      meta: [
+        {
+          name: 'description',
+          content: '导航盘是一款大而全的夸克网盘搜索引擎，页面清爽，资源全面，支持影视、短剧、综艺、动漫等资源搜索。',
+        }, {
+          name: 'keywords',
+          content: '网盘全文检索,短剧搜,短剧搜索,热门短剧搜索,阿里盘搜,云搜,网盘搜索,百度网盘搜索,百度云搜索,阿里云盘搜索,夸克云盘搜索,百度云盘,迅雷云盘,天翼云盘,蓝奏云盘,网盘搜索引擎,网盘搜索神器,网盘资源搜索,资源搜索,资源分享,云盘资源搜索,阿里云盘资源搜索,迅雷云盘搜索',
+        },
+      ],
+    })
   },
   mounted() {
     console.log("now host:" + window.location.hostname)
@@ -162,7 +176,7 @@ export default {
       this.keyword = urlKeyword
       this.pageNo = parseInt(urlPageNo)
     }
-    console.log("init urlKeyword:" + urlKeyword + " and urlPageNo:" + urlPageNo)
+    // document.title = '导航盘-最全的夸克网盘搜索引擎';
 
     this.search()
   }

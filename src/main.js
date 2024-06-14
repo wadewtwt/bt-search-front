@@ -5,13 +5,16 @@ import store from './store'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import { createHead } from '@unhead/vue'
+
+const head = createHead()
 
 // createApp(App).use(store).use(router).mount('#app')
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
-
+app.use(head)
 app.use(ElementPlus)
 app.use(store)
 app.use(router)
