@@ -96,7 +96,8 @@ export default {
       pageNo: 1,
       is_homepage: true,
       baseUrl: "http://api.jumpfun.space/api/search",
-      localUrl: "http://localhost:8080"
+      // localUrl: "http://localhost:8080"
+      localUrl: window.location.hostname
     }
   },
   methods: {
@@ -144,7 +145,7 @@ export default {
     }
   },
   mounted() {
-    this.localUrl = window.location.hostname
+
     console.log("now host:" + window.location.hostname)
 
     const params = new URLSearchParams(window.location.search);
