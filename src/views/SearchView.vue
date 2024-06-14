@@ -126,7 +126,7 @@ export default {
       console.log("handlePageChange now pageNo is:")
       console.log(this.pageNo)
       console.log(this.keyword)
-      let jumpUrl = this.localUrl + "/?keyword=" + this.keyword + "&pageNo=" + this.pageNo
+      let jumpUrl = "?keyword=" + this.keyword + "&pageNo=" + this.pageNo
       console.log(jumpUrl)
 
       window.location.href = jumpUrl
